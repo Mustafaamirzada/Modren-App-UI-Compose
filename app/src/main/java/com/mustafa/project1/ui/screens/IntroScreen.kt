@@ -1,0 +1,125 @@
+package com.mustafa.project1.ui.screens
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.mustafa.project1.R
+import com.mustafa.project1.ui.components.AnimatedItem
+import com.mustafa.project1.ui.theme.DarkBlue
+import com.mustafa.project1.ui.theme.LightBlue
+import kotlinx.coroutines.delay
+
+@Composable
+@Preview
+fun IntroScreen(onGetStatedClick: () -> Unit = {}) {
+    var isVisible by remember { mutableStateOf(false) }
+
+    LaunchedEffect(Unit) {
+        delay(100)
+        isVisible = true
+    }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(DarkBlue)
+    ) {
+        Box(
+            modifier = Modifier.wrapContentSize(),
+            contentAlignment = Alignment.BottomCenter
+        ) {
+            Image(
+                painter = painterResource(R.drawable.woman),
+                contentDescription = null,
+                modifier = Modifier.fillMaxWidth(),
+                contentScale = ContentScale.Fit
+            )
+            Image(
+                // here we should insert an arch shape image
+                painter = painterResource(R.drawable.carve),
+                contentDescription = null,
+                modifier = Modifier.fillMaxWidth(),
+                contentScale = ContentScale.FillWidth
+            )
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(LightBlue)
+                .padding(horizontal = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.height(height = 32.dp))
+            AnimatedItem(visible = isVisible, delay=0) {
+                Text(
+                    text = "Welcome \nto the App",
+                    color = Color.Black,
+                    fontSize = 37.sp,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center,
+                    lineHeight = 40.sp
+                )
+            }
+
+            Spacer(modifier = Modifier.height(height = 32.dp))
+            AnimatedItem(visible = isVisible, delay=300) {
+                Text(
+                    text = "Experiance the extraordinary as your \n" +
+                            "visionary UI design propels you \n" +
+                            "into a world of endless possibility, \n" +
+                            "where innovation shapes the future",
+                    color = Color.Gray,
+                    fontSize = 20.sp,
+                    modifier = Modifier.padding(top = 32.dp),
+                    textAlign = TextAlign.Center,
+                    lineHeight = 32.sp
+                )
+            }
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            AnimatedItem(visible = isVisible, delay = 600) {
+                Button(
+                    onClick = onGetStatedClick,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(height = 60.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = DarkBlue),
+                    shape = RoundedCornerShape(10.dp)
+                ) {
+                    Text("Get Started", color = Color.White, fontSize = 20.sp)
+                }
+            }
+            Spacer(modifier = Modifier.height(height = 32.dp))
+
+        }
+    }
+}
